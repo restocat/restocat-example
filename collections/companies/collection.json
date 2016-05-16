@@ -1,0 +1,14 @@
+{
+  "name": "companies",
+  "logic": "index.js",
+
+  "endpoints": {
+    "get /": "list",
+    "get /:id": "one",
+    "put /:id": "update",
+    "delete /:id": "delete",
+    "post /:id": "create",
+    "get /:id/reviews": "reviews",
+    "post /:id/likes": "likes"
+  }
+}
