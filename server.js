@@ -7,10 +7,29 @@ const rest = new Restocat();
 const Logger = require('restocat-logger');
 const logger = Logger.register(rest.locator);
 
-rest.use(logger.responseLogger);
+rest.use((request, response) => {
+  const def = Promise.defer();
 
-rest.use(bodyParser.json());
-rest.use(bodyParser.urlencoded({extended: false}));
+  logger.responseLogger(request, response, (err) => err ? def.reject(err) : def.resolve());
+
+  return def.promise;
+});
+
+rest.use((request, response) => {
+  const def = Promise.defer();
+
+  bodyParser.json()(request, response, (err) => err ? def.reject(err) : def.resolve());
+
+  return def.promise;
+});
+
+rest.use((request, response) => {
+  const def = Promise.defer();
+
+  bodyParser.urlencoded({extended: false})(request, response, (err) => err ? def.reject(err) : def.resolve());
+
+  return def.promise;
+});
 
 rest.ready()
   .then(() => {

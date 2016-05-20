@@ -1,0 +1,38 @@
+[
+  {
+    "text": "Lorem Ipsum is simply dummy text of the printing and typesetting ",
+    "company": 1
+  },
+  {
+    "text": "industry. Lorem Ipsum has been the industry's standard dummy ",
+    "company": 1
+  },
+  {
+    "text": "text ever since the 1500s, when an unknown printer took a galley ",
+    "company": 2
+  },
+  {
+    "text": "of type and scrambled it to make a type specimen book. It has ",
+    "company": 2
+  },
+  {
+    "text": "survived not only five centuries, but also the leap into electronic ",
+    "company": 3
+  },
+  {
+    "text": "typesetting, remaining essentially unchanged. It was popularised in ",
+    "company": 3
+  },
+  {
+    "text": "the 1960s with the release of Letraset sheets containing Lorem ",
+    "company": 3
+  },
+  {
+    "text": "Ipsum passages, and more recently with desktop publishing ",
+    "company": 4
+  },
+  {
+    "text": "software like Aldus PageMaker including versions of Lorem Ipsum.",
+    "company": 5
+  }
+]

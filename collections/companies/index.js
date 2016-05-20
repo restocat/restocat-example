@@ -10,30 +10,48 @@ class Companies {
   }
 
   /**
-   * Some changes
+   * Imitation database connection
    *
    * @returns {Promise}
    * @private
    */
   _databaseConnect() {
-    return new Promise((fulfill, reject) => setTimeout(() => fulfill(companiesJson), 100));
+    return new Promise((fulfill, reject) => setTimeout(() => fulfill(companiesJson), 10));
   }
 
   /**
    * GET /:id
    */
   one() {
-    const id = this.$context.request.params.id;
+    const id = this.$context.state.id;
 
     return this._databaseConnect()
       .then(companies => {
         if (!companies[id]) {
-          return this.notFound();
+          return this.$context.notFound();
         }
 
         this._logger.info('Some changes');
 
         return companies[id];
+      });
+  }
+
+  /**
+   * GET /:id/reviews
+   */
+  reviews() {
+    const id = this.$context.state.id;
+
+    return this._databaseConnect()
+      .then(companies => {
+        if (!companies[id]) {
+          return this.$context.notFound();
+        }
+
+        this.$context.request.query = {filters: {company_id: id}};
+
+        return this.$context.forward('reviews', 'list');
       });
   }
 
@@ -64,10 +82,10 @@ class Companies {
   update() {
     return this._databaseConnect()
       .then(companies => {
-        const id = this.$context.params.id;
+        const id = this.$context.state.id;
 
         if (!companies[id]) {
-          return this.notFound();
+          return this.$context.notFound();
         }
 
         companies[id] = this.$context.request.body;
@@ -84,10 +102,10 @@ class Companies {
   delete() {
     return this._databaseConnect()
       .then(companies => {
-        const id = this.$context.params.id;
+        const id = this.$context.state.id;
 
         if (!companies[id]) {
-          return this.notFound();
+          return this.$context.notFound();
         }
 
         companies[id] = this.$context.request.body;
@@ -96,10 +114,6 @@ class Companies {
 
         return companies[id];
       })
-  }
-
-  notFound() {
-    return new CustomError.NotFoundError('Company not found');
   }
 }
 

@@ -1,0 +1,9 @@
+{
+  "name": "reviews",
+  "logic": "index.js",
+
+  "endpointsDefault": false,
+  "endpoints": {
+    "get /": "list"
+  }
+}

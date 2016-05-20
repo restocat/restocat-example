@@ -2,5 +2,6 @@
 
 module.exports = {
   index: '/',
-  companies: '/companies'
+  companies: '/companies',
+  reviews: '/reviews'
 };
