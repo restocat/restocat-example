@@ -13,16 +13,15 @@ class Reviews {
    */
   list() {
     const query = this.$context.request.query;
+    const filters = query && query.filters;
 
-    const reviews = reviewsJson.filter(review => {
-      if (query && query.filters && query.filters.company_id) {
-        return review.company === Number(query.filters.company_id);
+    return reviewsJson.filter(review => {
+      if (filters && filters.company_id) {
+        return review.company === Number(filters.company_id);
       }
 
       return true;
     });
-
-    return reviews;
   }
 }
 

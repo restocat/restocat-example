@@ -1,7 +1,6 @@
 'use strict';
 
 const companiesJson = require('./companies.json');
-const CustomError = require('restocat').CustomError;
 
 class Companies {
 
@@ -20,7 +19,9 @@ class Companies {
   }
 
   /**
-   * GET /:id
+   * Handler for "GET /:id"
+   *
+   * return one entity
    */
   one() {
     const id = this.$context.state.id;
@@ -38,7 +39,9 @@ class Companies {
   }
 
   /**
-   * GET /:id/reviews
+   * Handler for "GET /:id/reviews"
+   *
+   * a forwarding handler
    */
   reviews() {
     const id = this.$context.state.id;
@@ -51,19 +54,24 @@ class Companies {
 
         this.$context.request.query = {filters: {company_id: id}};
 
+        // Forwarding to collection "reviews" and call handle "list"
         return this.$context.forward('reviews', 'list');
       });
   }
 
   /**
-   * GET /
+   * Handler for "GET /"
+   *
+   * return list of entities
    */
   list() {
     return this._databaseConnect()
   }
 
   /**
-   * POST "/"
+   * Handler "POST /"
+   *
+   * create new entity
    */
   create() {
     return this._databaseConnect()

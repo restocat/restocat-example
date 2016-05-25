@@ -3,37 +3,29 @@
 const bodyParser = require('body-parser');
 const Restocat = require('restocat');
 const rest = new Restocat();
+const server = rest.createServer();
 
+// Register logger
 const Logger = require('restocat-logger');
 const logger = Logger.register(rest.locator);
 
-rest.use((request, response) => {
-  const def = Promise.defer();
+// Register custom request middleware
+//server.use(logger.responseLogger());
 
-  logger.responseLogger(request, response, (err) => err ? def.reject(err) : def.resolve());
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({extended: false}));
 
-  return def.promise;
+server.register('formatter', {
+  'text/plain; q=0.3': (context, data) => {
+    const string = String(data);
+
+    context.response.setHeader('Content-Length', Buffer.byteLength(string));
+    context.response.setHeader('X-FORMATTER', 'CUSTOM');
+
+    return string;
+  }
 });
 
-rest.use((request, response) => {
-  const def = Promise.defer();
-
-  bodyParser.json()(request, response, (err) => err ? def.reject(err) : def.resolve());
-
-  return def.promise;
-});
-
-rest.use((request, response) => {
-  const def = Promise.defer();
-
-  bodyParser.urlencoded({extended: false})(request, response, (err) => err ? def.reject(err) : def.resolve());
-
-  return def.promise;
-});
-
-rest.ready()
-  .then(() => {
-    rest.createServer().listen(3000);
-    logger.info('Restocat listen on 3000 port');
-  })
+server.listen(3000)
+  .then(() => logger.info('Restocat listen on 3000 port'))
   .catch(reason => console.error(reason));
