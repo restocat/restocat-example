@@ -1,7 +1,34 @@
 {
+  "name": "restocat-example",
+  "version": "2.0.0",
+  "description": "Application example for restocat",
+  "main": "service.js",
+  "scripts": {
+    "lint": "node_modules/.bin/eslint ./**/*.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/restocat/restocat-example.git"
+  },
+  "author": {
+    "name": "Maksim Chetverikov",
+    "email": "ma.chetverikov@gmail.com"
+  },
+  "engines": {
+    "node": ">=6"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/restocat/restocat-example/issues"
+  },
+  "homepage": "https://github.com/restocat/restocat-example",
   "dependencies": {
-    "body-parser": "^1.15.1",
-    "restocat": "^1.0.0-alpha.4",
-    "restocat-logger": "^1.0.0-alpha.2"
+    "body-parser": "^1.17.1",
+    "restocat": "^2.2.1",
+    "restocat-logger": "^2.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.17.1"
   }
 }

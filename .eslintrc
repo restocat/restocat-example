@@ -78,8 +78,6 @@
     "no-path-concat": 2,
     "no-sync": 2,
 
-    "strict": [2, "global"],
-
     "complexity": [2, 10],
     "consistent-return": 2,
     "curly": [2, "all"],

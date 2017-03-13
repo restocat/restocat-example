@@ -1,5 +1,3 @@
-'use strict';
-
 const bodyParser = require('body-parser');
 const Restocat = require('restocat');
 const rest = new Restocat();
@@ -9,11 +7,12 @@ const server = rest.createServer();
 const Logger = require('restocat-logger');
 const logger = Logger.register(rest.locator);
 
-// Register custom request middleware
-//server.use(logger.responseLogger());
-
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: false}));
+
+// Services
+const services = require('./services');
+services.register(rest.locator);
 
 server.register('formatter', {
   'text/plain; q=0.3': (context, data) => {

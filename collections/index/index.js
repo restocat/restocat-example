@@ -1,7 +1,4 @@
-'use strict';
-
-class Companies {
-
+class IndexCollection {
   list() {
     return {
       '/': 'index',
@@ -12,9 +9,20 @@ class Companies {
       '/companies/:id': {
         get: 'Get company',
         put: 'Update company'
-      }
+      },
+      '/companies/:id/reviews': {
+        get: 'Get list of reviews for company'
+      },
+      '/reviews': {
+        get: 'List of reviews',
+        post: 'Create new review'
+      },
+      '/reviews/:id': {
+        get: 'Get review',
+        put: 'Update review'
+      },
     };
   }
 }
 
-module.exports = Companies;
+module.exports = IndexCollection;

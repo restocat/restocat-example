@@ -1,6 +1,7 @@
 {
   "name": "companies",
   "logic": "index.js",
+  "serviceName": "companiesService",
 
   "endpoints": {
     "get /:id/reviews": "reviews"

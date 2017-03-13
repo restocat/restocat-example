@@ -1,6 +1,7 @@
 {
   "name": "reviews",
   "logic": "index.js",
+  "serviceName": "reviewsService",
 
   "endpointsDefault": false,
   "endpoints": {
