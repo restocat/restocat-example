@@ -48,27 +48,20 @@ class BaseCollection {
    *
    * return one entity
    */
-  one() {
+  async one() {
     const id = this.$context.state.id;
 
-    return this.getService().hasDocumentById(id)
-      .then(has => {
-        if (!has) {
-          throw this.$context.notFound();
-        }
+    const has = await this.getService().hasDocumentById(id);
 
-        return this.getService().getDocumentById(id);
-      })
-      .then(document => {
-        this.$context.response.json(200, JSON.stringify(document));
+    if (!has) {
+      throw this.$context.notFound();
+    }
 
-        return this.$context.notSend(); // manual control of a sending (without formatter)
-      })
-      .catch(e => {
-        // prepare error
+    const document = await this.getService().getDocumentById(id);
 
-        throw e;
-      });
+    this.$context.response.json(200, JSON.stringify(document));
+
+    return this.$context.notSend(); // manual control of a sending (without formatter)
   }
 
   /**
@@ -85,46 +78,50 @@ class BaseCollection {
    *
    * create new entity
    */
-  create() {
-    return this.auth()
-      .then(user => this.canUser(user)) // check access
-      .then(() => this.getService().insert(this.$context.request.body));
+  async create() {
+    const user = await this.auth();
+
+    await this.canUser(user); // check access
+
+    return this.getService().insert(this.$context.request.body);
   }
 
   /**
    * PUT "/:id"
    */
-  update() {
+  async update() {
     const id = this.$context.state.id;
 
-    return this.auth()
-      .then(user => this.canUser(user))
-      .then(() => this.getService().hasDocumentById(id))
-      .then(has => {
-        if (!has) {
-          throw this.$context.notFound();
-        }
+    const user = await this.auth();
 
-        return this.getService().update(id, this.$context.request.body);
-      });
+    await this.canUser(user);
+
+    const has = await this.getService().hasDocumentById(id);
+
+    if (!has) {
+      throw this.$context.notFound();
+    }
+
+    return this.getService().update(id, this.$context.request.body);
   }
 
   /**
    * DELETE "/:id"
    */
-  delete() {
+  async delete() {
     const id = this.$context.state.id;
 
-    return this.auth()
-      .then(user => this.canUser(user))
-      .then(() => this.getService().hasDocumentById(id))
-      .then(has => {
-        if (!has) {
-          throw this.$context.notFound();
-        }
+    const user = await this.auth();
 
-        return this.getService().remove(id);
-      });
+    await this.canUser(user);
+
+    const has = await this.getService().hasDocumentById(id);
+
+    if (!has) {
+      throw this.$context.notFound();
+    }
+
+    return this.getService().remove(id);
   }
 }
 

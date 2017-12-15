@@ -6,6 +6,9 @@ const server = rest.createServer();
 // Register logger
 const Logger = require('restocat-logger');
 const logger = Logger.register(rest.locator);
+// Init restocat watcher
+const Watcher = require('restocat-watcher');
+const watcher = new Watcher(rest.locator);
 
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: false}));
@@ -25,6 +28,12 @@ server.register('formatter', {
   }
 });
 
-server.listen(3000)
-  .then(() => logger.info('Restocat listen on 3000 port'))
+server.listen(3009)
+  .then(() => {
+    logger.info('Restocat listen on 3009 port');
+
+    if (process.env.NODE_ENV !== 'production') {
+      watcher.watchCollections();
+    }
+  })
   .catch(reason => console.error(reason));

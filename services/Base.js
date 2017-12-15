@@ -24,45 +24,45 @@ class BaseService {
     return this._databaseConnect();
   }
 
-  getDocumentById(id) {
+  async getDocumentById(id) {
     this.logger.info('Document by id');
 
-    return this._databaseConnect().then(documents => documents[id]);
+    const documents = await this._databaseConnect();
+
+    return documents[id];
   }
 
-  hasDocumentById(id) {
-    return this._databaseConnect().then(document => Boolean(document[id]));
+  async hasDocumentById(id) {
+    const documents = await this._databaseConnect();
+
+    return Boolean(documents[id]);
   }
 
-  insert(document) {
-    return this._databaseConnect()
-      .then(documents => {
-        const index = documents.push(document) - 1;
+  async insert(document) {
+    const documents = await this._databaseConnect();
+    const index = documents.push(document) - 1;
 
-        this.logger.info(`Add new document #${index}`);
+    this.logger.info(`Add new document #${index}`);
 
-        return documents[index];
-      });
+    return documents[index];
   }
 
-  update(id, document) {
-    return this._databaseConnect()
-      .then(documents => {
-        documents[id] = document;
+  async update(id, document) {
+    const documents = await this._databaseConnect();
 
-        this.logger.info(`Update document #${id}`);
+    documents[id] = document;
 
-        return documents[id];
-      });
+    this.logger.info(`Update document #${id}`);
+
+    return documents[id];
   }
 
-  remove(id) {
-    return this._databaseConnect()
-      .then(documents => {
-        documents.splice(id, 1);
+  async remove(id) {
+    const documents = await this._databaseConnect();
 
-        this.logger.info(`Remove document #${id}`);
-      });
+    documents.splice(id, 1);
+
+    this.logger.info(`Remove document #${id}`);
   }
 }
 

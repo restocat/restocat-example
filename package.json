@@ -1,6 +1,6 @@
 {
   "name": "restocat-example",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Application example for restocat",
   "main": "service.js",
   "scripts": {
@@ -16,7 +16,7 @@
     "email": "ma.chetverikov@gmail.com"
   },
   "engines": {
-    "node": ">=6"
+    "node": ">=8"
   },
   "license": "MIT",
   "bugs": {
@@ -24,11 +24,12 @@
   },
   "homepage": "https://github.com/restocat/restocat-example",
   "dependencies": {
-    "body-parser": "^1.17.1",
-    "restocat": "^2.2.1",
-    "restocat-logger": "^2.0.0"
+    "body-parser": "^1.18.2",
+    "restocat": "^3.0.0",
+    "restocat-logger": "^2.0.0",
+    "restocat-watcher": "1.0.0"
   },
   "devDependencies": {
-    "eslint": "^3.17.1"
+    "eslint": "^4.13.1"
   }
 }

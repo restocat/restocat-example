@@ -16,11 +16,7 @@ class IndexCollection {
       '/reviews': {
         get: 'List of reviews',
         post: 'Create new review'
-      },
-      '/reviews/:id': {
-        get: 'Get review',
-        put: 'Update review'
-      },
+      }
     };
   }
 }
